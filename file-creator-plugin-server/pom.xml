@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+
+  <parent>
+    <artifactId>file-creator-plugin</artifactId>
+    <groupId>com.example.teamcity</groupId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>file-creator-plugin-server</artifactId>
+  <packaging>jar</packaging>
+
+  <properties>
+    <teamcity-version>2024.07</teamcity-version>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
+
+  <repositories>
+    <!-- Репозиторий TeamCity -->
+    <repository>
+      <id>TeamCity</id>
+      <url>https://download.jetbrains.com/teamcity-repository</url>
+    </repository>
+    <repository>
+      <id>local</id>
+      <url>file://${user.home}/.m2/repository</url>
+    </repository>
+    <repository>
+      <id>maven-central</id>
+      <url>https://repo.maven.apache.org/maven2/</url>
+    </repository>
+    <repository>
+      <id>jcenter</id>
+      <url>https://jcenter.bintray.com</url>
+    </repository>
+    <repository>
+      <id>teamcity-repository</id>
+      <url>https://download.jetbrains.com/teamcity-repository/</url>
+    </repository>
+
+
+  </repositories>
+
+  <dependencies>
+    <!-- Основной API TeamCity -->
+    <dependency>
+      <groupId>org.jetbrains.teamcity</groupId>
+      <artifactId>server-api</artifactId>
+      <version>${teamcity-version}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- Веб-API TeamCity -->
+    <dependency>
+      <groupId>org.jetbrains.teamcity</groupId>
+      <artifactId>server-web-api</artifactId>
+      <version>${teamcity-version}</version>
+      <type>war</type>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- Поддержка тестов -->
+    <dependency>
+      <groupId>org.jetbrains.teamcity</groupId>
+      <artifactId>tests-support</artifactId>
+      <version>${teamcity-version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <!-- Maven Compiler Plugin -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+        <configuration>
+          <source>${maven.compiler.source}</source>
+          <target>${maven.compiler.target}</target>
+        </configuration>
+      </plugin>
+
+      <!-- TeamCity Plugin Development -->
+      <plugin>
+        <groupId>org.jetbrains.teamcity</groupId>
+        <artifactId>teamcity-sdk-maven-plugin</artifactId>
+        <version>0.4</version>
+      </plugin>
+    </plugins>
+  </build>
+</project>
